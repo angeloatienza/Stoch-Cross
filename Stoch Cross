@@ -1,0 +1,19 @@
+//@version=3
+strategy(title="Stochastic", shorttitle="Stoch")
+periodK = input(14, title="K", minval=1)
+periodD = input(3, title="D", minval=1)
+smoothK = input(6, title="Smooth", minval=1)
+k = sma(stoch(close, high, low, periodK), smoothK)
+d = sma(k, periodD)
+plot(k, title="%K", color=blue)
+plot(d, title="%D", color=orange)
+h0 = hline(80)
+h1 = hline(20)
+fill(h0, h1, color=purple, transp=75)
+long = k > d and k < 20 and d < 80
+short = k < d and k > 80 and d > 80
+strategy.entry("Long", strategy.long, 10000.0, when=long)
+strategy.entry("Short", strategy.short, 10000.0, when=short)
+strategy.close("Long", when = short)
+strategy.close("Short", when = long)
+plot(strategy.equity)

@@ -10,7 +10,7 @@ plot(d, title="%D", color=orange)
 h0 = hline(80)
 h1 = hline(20)
 fill(h0, h1, color=purple, transp=75)
-long = k > d and k < 20 and d < 80
+long = k > d and k < 20 and d < 20
 short = k < d and k > 80 and d > 80
 strategy.entry("Long", strategy.long, 10000.0, when=long)
 strategy.entry("Short", strategy.short, 10000.0, when=short)
